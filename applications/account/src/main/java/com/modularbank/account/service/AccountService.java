@@ -3,9 +3,6 @@ package com.modularbank.account.service;
 import com.modularbank.account.dao.AccountDao;
 import com.modularbank.account.entity.Account;
 import com.modularbank.account.entity.Balance;
-import com.modularbank.account.entity.Currency;
-import com.modularbank.account.exception.AccountNotFoundException;
-import com.modularbank.account.exception.InvalidCurrencyException;
 import com.modularbank.account.exception.InvalidCustomerException;
 import com.modularbank.account.utils.AccountUtils;
 import com.modularbank.account.utils.Messages;
@@ -15,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AccountService {

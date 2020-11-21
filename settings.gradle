@@ -1,1 +1,3 @@
-rootProject.name = 'account-service'
+rootProject.name = 'banking-app'
+
+include "applications:account"
