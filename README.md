@@ -29,7 +29,6 @@ $ docker-compose up -V
 Open a new terminal window **at the root path of the project** and run the following commands:
 
 ```sh
-$ cd appplications/account
 $ JAVA_HOME=<YourJDK15HomePath> ./gradlew :applications:account:bootRun
 ```
 The API should be accessible at http://localhost:8080/accounts
@@ -39,7 +38,6 @@ The API should be accessible at http://localhost:8080/accounts
 Open a new terminal window **at the root path of the project** and run the following commands:
 
 ```sh
-$ cd appplications/reports
 $ JAVA_HOME=<YourJDK15HomePath> ./gradlew :applications:reports:bootRun
 ```
 The API should be accessible at http://localhost:8082/reports/accounts
