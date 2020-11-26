@@ -30,7 +30,7 @@ db_1        | (1 row)
 Open a new terminal window and run the follwing commands:
 
 ```sh
-$ cd webapp
+$ cd applications/reports-web
 $ npm install
 $ npm start
 ```
