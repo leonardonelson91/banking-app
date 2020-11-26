@@ -55,3 +55,25 @@ $ cd appplications/reports
 $ JAVA_HOME=<YourJDK15HomePath> ./gradlew :applications:reports:bootRun
 ```
 The API should be accessible at http://localhost:8082/reports/accounts
+
+# Architectural Considerations
+
+* As a database mirroring solution, it was opted for using Redis as a persistence layer given its flexibility and speed to manipulate the data.
+
+
+# Performance Benchmark
+
+![Stress Test](./stress-test.png)
+
+The stress test was set up to run for 10 minutes simulating 150 virtual users (threads) with JMeter, gradually increasing the users from 0 until 150 after 5 minutes of execution. During the first 5 minutes, where the virtual users count was approximately up to 80%, the Account API demonstrated an ability of handling between 6 and 9 transactions per second (distributed between write and read operations). At the mark of 5 minutes,  upon the activation of the 150 virtual users, the service started demonstrating the first signs of overload. Therefore, in summary, in the local environment machine seems to be able to handle up to 120 virtual users with a 6~9 TPS average.
+
+Some bottlenecks could also be observed in the database container, where the pool of connections reached its limit, making some transactions time out. To tweak this up, adding an extra database instance could help, or increasing the pool of connections in the applications.
+
+# Scaling
+
+To scale up the applications horizontally, some points need to be observed:
+
+* A Service Discovery system should be included in the architecture, so multiple app containers can be utilised
+* An extra database container
+* Increase the pool of database connections
+* Environment variables injection (database credentials, port configuration, etc)

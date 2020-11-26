@@ -25,7 +25,9 @@ import static com.modularbank.account.entity.Transaction.DIRECTION.IN;
 @Service
 public class TransactionService {
 
-    private static final String EXCHANGE_NAME = "account-exchange";
+    public static final String EXCHANGE_NAME = "account-exchange";
+    public static final String TRANSACTION_CREATE_KEY = "transaction.create";
+    public static final String ACCOUNT_UPDATE_KEY = "account.update";
 
     private TransactionDao transactionDao;
     private AccountDao accountDao;
@@ -100,11 +102,11 @@ public class TransactionService {
 
     protected void notifyQueue(Transaction transaction) throws JsonProcessingException {
         String json = new ObjectMapper().writeValueAsString(transaction);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "transaction.create", json);
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, TRANSACTION_CREATE_KEY, json);
     }
 
     protected void notifyQueue(Account account) throws JsonProcessingException {
         String json = new ObjectMapper().writeValueAsString(account);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "account.update", json);
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, ACCOUNT_UPDATE_KEY, json);
     }
 }

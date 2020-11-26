@@ -15,14 +15,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AccountService {
 
-    private static final String EXCHANGE_NAME = "account-exchange";
+    public static final String EXCHANGE_NAME = "account-exchange";
+    public static final String ACCOUNT_CREATE_KEY = "account.create";
 
     private AccountDao accountDao;
     private AccountUtils accountUtils;
@@ -77,6 +76,6 @@ public class AccountService {
 
     protected void notifyQueue(Account account) throws JsonProcessingException {
         String json = new ObjectMapper().writeValueAsString(account);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "account.create", json);
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, ACCOUNT_CREATE_KEY, json);
     }
 }
