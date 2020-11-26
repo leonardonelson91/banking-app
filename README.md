@@ -11,7 +11,7 @@ You must have the following tools installed in your system in order to run the a
 
 **Services (PostgreSQL Database, Redis Cache, RabbitMQ)**
 
-Open a new terminal window and run the follwing commands:
+Open a new terminal window and run the following commands:
 
 ```sh
 $ cd scripts
@@ -26,7 +26,7 @@ $ docker-compose up -V
 
 **Accounts API**
 
-Open a new terminal window and run the follwing commands:
+Open a new terminal window **at the root path of the project** and run the following commands:
 
 ```sh
 $ cd appplications/account
@@ -36,7 +36,7 @@ The API should be accessible at http://localhost:8080/accounts
 
 **Reports API**
 
-Open a new terminal window and run the follwing commands:
+Open a new terminal window **at the root path of the project** and run the following commands:
 
 ```sh
 $ cd appplications/reports
@@ -46,7 +46,7 @@ The API should be accessible at http://localhost:8082/reports/accounts
 
 **Reports Web Application**
 
-Open a new terminal window and run the follwing commands:
+Open a new terminal window and run the following commands:
 
 ```sh
 $ cd applications/reports-web
