@@ -20,7 +20,8 @@ class AccountList extends React.Component {
       this.state = {
         error: null,
         isLoaded: false,
-        accounts: []
+        accounts: [],
+        newAccount: props.history.location.state?.newAccount
       };
   }
   componentDidMount() {
@@ -48,7 +49,7 @@ class AccountList extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, accounts } = this.state;
+    const { error, isLoaded, accounts, newAccount } = this.state;
     if (error) {
       return (
         <>
@@ -73,6 +74,13 @@ class AccountList extends React.Component {
       return (
         <>
           <div className="content">
+          {newAccount ? 
+              <Alert color="success">
+                Account created. If you can't see it in the list, just wait for a couple of seconds so that the system is updated and then refresh the page to see the new account.
+              </Alert>
+              :
+              null
+            } 
             <Row>
               <Col md="12">
                 <Card>

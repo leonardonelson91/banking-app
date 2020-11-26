@@ -69,7 +69,7 @@ class AccountCreate extends React.Component {
       .then(
         (res) => {
           if (res.ok) {
-            this.props.history.push(`/accounts`)
+            this.props.history.push(`/accounts/all`, { newAccount: true })
           } else {
             res.text().then(text => {
                 this.setState({
