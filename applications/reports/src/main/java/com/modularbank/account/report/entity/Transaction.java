@@ -1,36 +1,43 @@
-package com.modularbank.account.entity;
+package com.modularbank.account.report.entity;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Transaction {
-
+@RedisHash("Transaction")
+public class Transaction implements Serializable {
+    @Id
     private String id;
 
+    @Indexed
     private String accountId;
-
-    @NotNull
-    @Positive
     private Double amount;
-
-    @NotNull
-    @NotBlank
     private String currency;
-
-    @NotNull
-    @Valid
     private DIRECTION direction;
-
-    @NotNull
-    @NotBlank
     private String description;
-
     private Double balance;
 
+    @Indexed
     private Date date;
+
+    public Transaction(String id, String accountId, Double amount, String currency, DIRECTION direction,
+                       String description, Double balance, Date date) {
+        this.id = id;
+        this.accountId = accountId;
+        this.amount = amount;
+        this.currency = currency;
+        this.direction = direction;
+        this.description = description;
+        this.balance = balance;
+        this.date = date;
+    }
+
+    public Transaction() {
+    }
+
 
     public Date getDate() {
         return date;

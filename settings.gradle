@@ -1,3 +1,4 @@
 rootProject.name = 'banking-app'
 
 include "applications:account"
+include "applications:reports"

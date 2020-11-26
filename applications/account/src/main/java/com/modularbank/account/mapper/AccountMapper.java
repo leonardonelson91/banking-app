@@ -53,7 +53,7 @@ public interface AccountMapper {
     })
     Account getAccount(String id);
 
-    @Select("UPDATE account_balance SET amount = #{amount} WHERE account_id = #{accountId} RETURNING amount")
+    @Select("UPDATE account_balance SET amount = #{amount} WHERE account_id = #{accountId} AND currency = #{currency} RETURNING amount")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     Double updateBalance(Balance balance);
 }

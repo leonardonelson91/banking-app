@@ -41,6 +41,7 @@ CREATE TABLE account_balance (
     direction VARCHAR(3) NOT NULL,
     description VARCHAR(255) NOT NULL,
     balance NUMERIC(10,2) NOT NULL,
+    txn_dt TIMESTAMP NOT NULL,
            CONSTRAINT fk_transaction_account
            FOREIGN KEY(account_id)
            REFERENCES account(id),

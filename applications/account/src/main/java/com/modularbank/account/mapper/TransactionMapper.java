@@ -8,8 +8,8 @@ import java.util.List;
 @Mapper
 public interface TransactionMapper {
 
-    @Select("INSERT INTO transaction (account_id, amount, currency, direction, description, balance)" +
-            " VALUES (#{accountId}, #{amount}, #{currency}, #{direction.value}, #{description}, #{balance}) RETURNING id")
+    @Select("INSERT INTO transaction (account_id, amount, currency, direction, description, balance, txn_dt)" +
+            " VALUES (#{accountId}, #{amount}, #{currency}, #{direction.value}, #{description}, #{balance}, #{date}) RETURNING id")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     String createTransaction(Transaction transaction);
 

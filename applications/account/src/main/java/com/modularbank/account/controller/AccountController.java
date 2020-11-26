@@ -3,11 +3,13 @@ package com.modularbank.account.controller;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.modularbank.account.entity.Account;
+import com.modularbank.account.entity.Currency;
 import com.modularbank.account.entity.Transaction;
 import com.modularbank.account.exception.*;
 import com.modularbank.account.request.AccountRequest;
 import com.modularbank.account.service.AccountService;
 import com.modularbank.account.service.TransactionService;
+import com.modularbank.account.utils.AccountUtils;
 import com.modularbank.account.utils.Messages;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -24,24 +26,31 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/accounts")
 @Validated
 public class AccountController {
 
     private AccountService accountService;
+    private AccountUtils accountUtils;
     private TransactionService transactionService;
 
-    public AccountController(AccountService accountService, TransactionService transactionService) {
+    public AccountController(AccountService accountService, AccountUtils accountUtils, TransactionService transactionService) {
         this.accountService = accountService;
+        this.accountUtils = accountUtils;
         this.transactionService = transactionService;
     }
 
-    @GetMapping("/list")
+    @GetMapping(value = {"", "/"})
     public List<Account> getAccounts(){
         return accountService.getAllAccounts();
     }
 
-    @GetMapping(value = {"", "/", "/{id}"})
+    @GetMapping("/currencies")
+    public List<Currency> getCurrencies() {
+        return accountUtils.getAllowedCurrencies();
+    }
+
+    @GetMapping("/{id}")
     public Account getAccount(@PathVariable @NotEmpty @NotNull @NotBlank String id) {
         return accountService.getAccount(id);
     }
@@ -51,8 +60,9 @@ public class AccountController {
         return accountService.createAccount(accountRequest.getCustomerId(), accountRequest.getCountry(), accountRequest.getCurrencies());
     }
 
-    @PostMapping("/transaction")
-    public Transaction createTransaction(@Valid @RequestBody Transaction transaction) {
+    @PostMapping("/{accountId}/transaction")
+    public Transaction createTransaction(@PathVariable @NotEmpty @NotNull @NotBlank String accountId, @Valid @RequestBody Transaction transaction) {
+        transaction.setAccountId(accountId);
         return transactionService.createTransaction(transaction);
     }
 
@@ -107,5 +117,11 @@ public class AccountController {
     @ExceptionHandler(MismatchedInputException.class)
     public String invalidPathVariableHandler(HttpServletRequest req, MismatchedInputException ex) {
         return String.format(Messages.INVALID_FIELD, ex.getPath().get(0).getFieldName());
+    }
+
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(ServiceUnavailableException.class)
+    public String serviceUnavailableHandler(HttpServletRequest req, ServiceUnavailableException ex) {
+        return ex.getMessage();
     }
 }

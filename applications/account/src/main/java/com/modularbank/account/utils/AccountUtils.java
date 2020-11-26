@@ -5,6 +5,7 @@ import com.modularbank.account.entity.Account;
 import com.modularbank.account.entity.Currency;
 import com.modularbank.account.exception.AccountNotFoundException;
 import com.modularbank.account.exception.InvalidCurrencyException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -20,8 +21,12 @@ public class AccountUtils {
         this.accountDao = accountDao;
     }
 
+    public List<Currency> getAllowedCurrencies() {
+        return accountDao.getCurrencies();
+    }
+
     public void validateCurrency(String[] currencies) {
-        List<Currency> availableCurrencies = accountDao.getCurrencies();
+        List<Currency> availableCurrencies = getAllowedCurrencies();
 
         List<String> dirtyCurrencies = Arrays.asList(currencies);
         List<String> allowedCurrencies = availableCurrencies.stream().map(Currency::getCode).collect(Collectors.toList());
