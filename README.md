@@ -24,18 +24,6 @@ db_1        | --------------------------------------
 db_1        |  **0d8cf7fa-098d-470c-a09a-bbbb3927436c**
 db_1        | (1 row)
 
-
-**Reports Web Application**
-
-Open a new terminal window and run the follwing commands:
-
-```sh
-$ cd applications/reports-web
-$ npm install
-$ npm start
-```
-The app must be opened automatically in your browser. If it doesn't, then just open your browser and go to http://localhost:3000
-
 **Accounts API**
 
 Open a new terminal window and run the follwing commands:
@@ -55,6 +43,17 @@ $ cd appplications/reports
 $ JAVA_HOME=<YourJDK15HomePath> ./gradlew :applications:reports:bootRun
 ```
 The API should be accessible at http://localhost:8082/reports/accounts
+
+**Reports Web Application**
+
+Open a new terminal window and run the follwing commands:
+
+```sh
+$ cd applications/reports-web
+$ npm install
+$ npm start
+```
+The app must be opened automatically in your browser. If it doesn't, then just open your browser and go to http://localhost:3000
 
 # Architectural Considerations
 
