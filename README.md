@@ -20,9 +20,9 @@ $ docker-compose up -V
 `Once all the three service containers are up and running, please take a note of the generated Customer ID in the PostgreSQL's initialization logs. You'll need it to create new accounts using the API or the Web App. You should see something like:`
 
 > db_1        |              customer_id              
-db_1        | --------------------------------------
-db_1        |  **0d8cf7fa-098d-470c-a09a-bbbb3927436c**
-db_1        | (1 row)
+> db_1        | --------------------------------------
+> db_1        |  **0d8cf7fa-098d-470c-a09a-bbbb3927436c**
+> db_1        | (1 row)
 
 **Accounts API**
 
